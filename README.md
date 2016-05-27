@@ -17,3 +17,8 @@
 ##### 1. machinelearning/NLP/WordFreq.py
 	
    从数据库中读取信息之后使用jieba进行分词，然后统计词频的python脚本，dict.txt是自定义词典，stopword.txt是停词词典。
+
+##### 2. machinelearning/Classify/classify.py
+	
+   使用贝叶斯方法和费舍尔方法的分类器。可以对指定文本进行分类。demo.py是测试分类器的测试程序
+
