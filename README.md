@@ -12,4 +12,8 @@
 
    用来连接mysql数据库，并执行sql语句，同时也提供了字符串匹配的方式修改mysql的建表语句为阿里云ODPS的建表语句
 
+
+## 机器学习类
+##### 1. machinelearning/NLP/WordFreq.py
 	
+   从数据库中读取信息之后使用jieba进行分词，然后统计词频的python脚本，dict.txt是自定义词典，stopword.txt是停词词典。
