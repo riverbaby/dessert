@@ -5,8 +5,8 @@ import cv2
 from scapy.all import *
 from scapy.layers.inet import TCP
 
-pictures_directory = "./pictures"
-faces_directory = "./faces"
+pictures_directory = "/Users/river/project/security/dessert/security/web/pictures"
+faces_directory = "/Users/river/project/security/dessert/security/web/faces"
 pcap_file = "arper.pcap"
 
 def face_detect(path, file_name):
@@ -40,6 +40,7 @@ def get_http_headers(http_payload):
 
     return headers
 
+
 def extract_image(headers, http_payload):
     image = None
     image_type = None
@@ -50,13 +51,18 @@ def extract_image(headers, http_payload):
             image_type = headers["Content-Type"].split("/")[1]
 
             image = http_payload[http_payload.index("\r\n\r\n")+4:]
+            print(image_type)
+            print(headers)
 
             # if we detect compression decompress the image
             try:
                 if "Content-Encoding" in headers.keys():
+                    print("encoding")
                     if headers["Content-Encoding"] == "gzip":
+                        print("gzip")
                         image = zlib.decompress(image, 16+zlib.MAX_WBITS)
                     elif headers["Content-Encoding"] == "deflate":
+                        print("deflate")
                         image = zlib.decompress(image)
 
             except:
@@ -65,6 +71,7 @@ def extract_image(headers, http_payload):
         return None, None
 
     return image, image_type
+
 
 def http_assembler(pcap_file):
     carved_images = 0
@@ -97,6 +104,7 @@ def http_assembler(pcap_file):
             file_name = "%s-pic_carver_%d.%s" % \
                 (pcap_file, carved_images, image_type)
 
+            print(file_name)
             fd = open("%s/%s" % (pictures_directory, file_name), "wb")
 
             fd.write(image)
